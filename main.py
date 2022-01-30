@@ -79,8 +79,10 @@ def check_available_resources(user_entered):
     is_item_enough = True
     for key, value in coffee_ingredients.items():
         if resources[key] < coffee_ingredients[key]:
-            print("Sorry there is not enough ", key)
             is_item_enough = False
+            if not is_item_enough:
+                print("Sorry there is not enough ", key)
+                break
 
         else:
             if not is_user_inserted_coins:
@@ -114,3 +116,4 @@ def inserted_coins(user_entered, quarter_count, dimes_count, nickels_count, penn
 
 
 user_selects_option()
+
