@@ -69,20 +69,29 @@ def user_entered_cappuccino():
 
 def user_entered_report():
     for key, value in resources.items():
-        print(key, " : ", value)
+        if key == "water":
+            print("Water: ", value, "ml")
+        elif key == "milk":
+            print("Milk: ", value, "ml")
+        elif key == "coffee":
+            print("Coffee: ", value, "g")
+    print("Money : $", profit)
 
 
 def check_available_resources(user_entered):
-    # check_available_resources(user_entered)
     coffee_ingredients = MENU[user_entered]["ingredients"]
     is_user_inserted_coins = False
-    is_item_enough = True
+
     for key, value in coffee_ingredients.items():
+
         if resources[key] < coffee_ingredients[key]:
-            is_item_enough = False
-            if not is_item_enough:
-                print("Sorry there is not enough ", key)
-                break
+            print("Sorry there is not enough ", key)
+            break
+            # is_item_enough = False
+            # if not is_item_enough:
+            #     print("Sorry there is not enough ", key)
+            #     print(is_item_enough)
+            #     break
 
         else:
             if not is_user_inserted_coins:
@@ -102,6 +111,7 @@ def inserted_coins(user_entered, quarter_count, dimes_count, nickels_count, penn
     nickels = 0.05
     pennies = 0.01
     product_cost = MENU[user_entered]["cost"]
+    global profit
 
     amount_entered = (quarters * quarter_count) + (dimes * dimes_count) + (nickels * nickels_count) + \
                      (pennies * pennies_count)
@@ -110,10 +120,11 @@ def inserted_coins(user_entered, quarter_count, dimes_count, nickels_count, penn
         print("You entered insufficient amount")
     elif amount_entered == product_cost:
         print("You entered exact amount")
+        profit += product_cost
     else:
         amount_change = amount_entered - product_cost
+        profit += product_cost
         print("Your change: ", round(amount_change, 2))
 
 
 user_selects_option()
-
